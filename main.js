@@ -82,4 +82,49 @@ getEle("btnElecBill").onclick = function(){
     getEle("txtElecBill").innerHTML = "Tên Khách Hàng: " + hoTen + " - " + "Tổng tiền điện: " + tongTienDien;
 
 }
+// Bài 3: TÍNH TIỀN THUẾ THU NHẬP CÁ NHÂN
 
+var bac_5 = 0.05;
+var bac_10 = 0.1;
+var bac_15 = 0.15;
+var bac_20 = 0.2;
+var bac_25 = 0.25;
+var bac_30 = 0.3;
+var bac_35 = 0.35;
+
+// Thu nhap chiu thue = (tong thu nhap) - 4tr - (so nguoi phu thuoc) *1.6tr
+
+function tinhThuNhapChiuThue(tongThuNhap, soNguoiPhuThuoc){
+   var TNCT = tongThuNhap - 4000000 - 1600000*soNguoiPhuThuoc;
+   return TNCT;
+}
+
+
+getEle("btnTax").onclick = function(){
+    var tenCaNhan = getEle("inputName2").value;
+    var tongThuNhap = getEle("inputSalary").value;
+    var soNguoiPhuThuoc = getEle("inputUser").value;
+    var tienThue = 0;
+    var thuNhapChiuThue = tinhThuNhapChiuThue(tongThuNhap,soNguoiPhuThuoc);
+    if(thuNhapChiuThue <=60000000){
+      tienThue = thuNhapChiuThue*0.05;
+    }else if(thuNhapChiuThue >60000000 &&thuNhapChiuThue<=120000000){
+      tienThue = 60000000*0.05 + (thuNhapChiuThue-60000000)*0.1;
+    }else if(thuNhapChiuThue >120000000 &&thuNhapChiuThue<=210000000){
+      tienThue = 60000000*0.05 + 60000000*0.1 + (thuNhapChiuThue-120000000)*0.15;
+
+    }else if(thuNhapChiuThue >210000000 &&thuNhapChiuThue<=384000000){
+      tienThue = 60000000*0.05 + 60000000*0.1 + 120000000*0.15 + (thuNhapChiuThue-210000000)*0.20;
+
+    }else if(thuNhapChiuThue >384000000 &&thuNhapChiuThue<=624000000){
+      tienThue = 60000000*0.05 + 60000000*0.1 + 120000000*0.15 + 174000000*0.2 + (thuNhapChiuThue-384000000)*0.25;
+
+    }else if(thuNhapChiuThue >624000000 &&thuNhapChiuThue<=960000000){
+      tienThue = 60000000*0.05 + 60000000*0.1 + 120000000*0.15 + 174000000*0.2 + 240000000*0.25 + (thuNhapChiuThue-624000000)*0.3;
+
+    }else if(thuNhapChiuThue >960000000){
+      tienThue = 60000000*0.05 + 60000000*0.1 + 120000000*0.15 + 174000000*0.2 + 240000000*0.25 + 336000000*0.3 + (thuNhapChiuThue-960000000)*0.35;
+    }
+    getEle("txtTax").innerHTML = "Tên: " + tenCaNhan + " - " + "Tiền thuế thu nhập cá nhân: " + tienThue.toExponential() + " VND";
+ 
+}
